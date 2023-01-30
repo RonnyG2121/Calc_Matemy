@@ -27,20 +27,20 @@ class Calculadora(wx.Frame):
         self.caja = wx.BoxSizer(wx.HORIZONTAL)
         self.panel = wx.Panel(self, -1)
         self.label_ingresar1 = wx.StaticText(self.panel, wx.ID_ANY, "Ingrese el primer Número")
-        self.ingresar1 = wx.SpinCtrl(self.panel, min = 0, max = 1000000)
+        self.ingresar1 = wx.TextCtrl(self.panel, wx.ID_ANY, "")
         self.ingresar1.SetFocus()
         self.label_operaciones = wx.StaticText(self.panel, wx.ID_ANY, "Elija la operación a realizar:")
-        self.listaOperaciones = ["Suma", "Resta", "Multiplicación", "División", "Potencia", "Raíz Cuadrada"]
+        self.listaOperaciones = ["Suma", "Resta", "Multiplicación", "División", "Potencia"]
         self.choice = wx.ListBox(self.panel, wx.ID_ANY, choices = self.listaOperaciones)
         self.choice.SetSelection(0)
         self.label_ingresar2 = wx.StaticText(self.panel, wx.ID_ANY, "Ingrese segundo número")
-        self.ingresar2 = wx.SpinCtrl(self.panel, min = 0, max = 1000000)
+        self.ingresar2 = wx.TextCtrl(self.panel, wx.ID_ANY, "")
         self.boton_calculador = wx.Button(self.panel, wx.ID_ANY, "&Calcular")
         self.boton_calculador.Bind(wx.EVT_BUTTON, self.OnCalcular)
         self.btn_eliminar = wx.Button(self.panel, wx.ID_ANY, "&Borrar Todo\tCtrl+b")
         self.btn_eliminar.Bind(wx.EVT_BUTTON, self.OnBorrarTodo)
         self.label_resultado = wx.StaticText(self.panel, wx.ID_ANY, "&Resultado")
-        self.resultado = wx.TextCtrl(self.panel, wx.ID_ANY, "0", style = wx.TE_READONLY)
+        self.resultado = wx.TextCtrl(self.panel, wx.ID_ANY, "0.0", style = wx.TE_READONLY)
         self.caja.Add(self.label_ingresar1, 0, wx.ALL, 5)
         self.caja.Add(self.ingresar1, wx.ALL, 5)
         self.caja.Add(self.label_operaciones, wx.ALL, 5)
@@ -57,11 +57,11 @@ class Calculadora(wx.Frame):
     def OnCalcular(self, event):
         operacion = self.choice.GetString(self.choice.GetSelection())
         if operacion == "Suma":
-            resultado = int(self.ingresar1.GetValue()) + int(self.ingresar2.GetValue())
+            resultado = float(self.ingresar1.GetValue()) + float(self.ingresar2.GetValue())
             self.resultado.SetValue(str(resultado))
             self.resultado.SetFocus()
         elif operacion == "Resta":
-            resultado = int(self.ingresar1.GetValue()) - int(self.ingresar2.GetValue())
+            resultado = float(self.ingresar1.GetValue()) - float(self.ingresar2.GetValue())
             self.resultado.SetValue(str(resultado))
             self.resultado.SetFocus()
         elif operacion == "Multiplicación":
